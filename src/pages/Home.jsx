@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
+import { Helmet } from 'react-helmet-async';
 import { ArrowRight, Star, Shield, Clock, Users, CheckCircle, Phone } from 'lucide-react';
 import AppointmentForm from '../components/AppointmentForm';
 import './Home.css';
@@ -21,6 +22,12 @@ const Home = () => {
 
   return (
     <div className="home">
+      <Helmet>
+        <title>Home | RK Dental - Premium Dental Care</title>
+        <meta name="description" content="Welcome to RK Dental. We provide top-tier dental services including cosmetic dentistry, implants, and emergency care in a comfortable, modern environment." />
+        <link rel="canonical" href="https://rk-dental-five.vercel.app/" />
+      </Helmet>
+
       {/* Hero Section */}
       <section className="hero bg-dark">
         <div className="hero-glow-1"></div>
@@ -66,7 +73,7 @@ const Home = () => {
               <div className="form-pin"></div>
               <div className="hero-form-form-container">
                 <div className="glass-reflection"></div>
-                <AppointmentForm />
+                <AppointmentForm variant="dark" />
               </div>
             </motion.div>
           </div>

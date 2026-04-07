@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion';
+import { Helmet } from 'react-helmet-async';
 import { Award, Heart, Shield, Users } from 'lucide-react';
 import './About.css';
 
@@ -33,6 +34,11 @@ const About = () => {
 
   return (
     <div className="about-page">
+      <Helmet>
+        <title>About Us | RK Dental - Our Story & Experts</title>
+        <meta name="description" content="Learn about our mission to redefine dental care and meet our team of expert dentists." />
+        <link rel="canonical" href="https://rk-dental-five.vercel.app/about" />
+      </Helmet>
       <header className="page-header">
         <div className="container text-center">
           <motion.h1 

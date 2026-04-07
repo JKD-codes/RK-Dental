@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion';
+import { Helmet } from 'react-helmet-async';
 import { ArrowRight, Activity, Smile, Search, ShieldCheck } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import './Services.css';
@@ -39,6 +40,11 @@ const Services = () => {
 
   return (
     <div className="services-page">
+      <Helmet>
+        <title>Services | RK Dental - Comprehensive Care</title>
+        <meta name="description" content="Explore our wide range of dental services: general cleaning, cosmetic whitening, implants, and orthodontics." />
+        <link rel="canonical" href="https://rk-dental-five.vercel.app/services" />
+      </Helmet>
       {/* Page Header */}
       <header className="page-header">
         <div className="container text-center">

@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion';
+import { Helmet } from 'react-helmet-async';
 import { Mail, MapPin, Phone, Clock } from 'lucide-react';
 import AppointmentForm from '../components/AppointmentForm';
 import './Contact.css';
@@ -6,6 +7,11 @@ import './Contact.css';
 const Contact = () => {
   return (
     <div className="contact-page">
+      <Helmet>
+        <title>Contact Us | Book Your Appointment at RK Dental</title>
+        <meta name="description" content="Get in touch with RK Dental. Book an appointment, find our location, or call our expert team for any dental inquiries." />
+        <link rel="canonical" href="https://rk-dental-five.vercel.app/contact" />
+      </Helmet>
       <header className="page-header">
         <div className="container text-center">
           <motion.h1 

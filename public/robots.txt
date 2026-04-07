@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://rk-dental-five.vercel.app/sitemap.xml

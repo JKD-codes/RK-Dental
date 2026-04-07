@@ -4,12 +4,22 @@
   background-color: transparent;
 }
 
-.appointment-form .heading-tertiary {
+/* Theme: Dark (for dark backgrounds like Hero) */
+.appointment-form.theme-dark .heading-tertiary {
   color: #FFFFFF;
 }
 
-.appointment-form .text-muted {
-  color: rgba(255, 255, 255, 0.6) !important;
+.appointment-form.theme-dark .text-muted {
+  color: rgba(255, 255, 255, 0.7) !important;
+}
+
+/* Theme: Light (for light backgrounds like Contact page) */
+.appointment-form.theme-light .heading-tertiary {
+  color: var(--color-text-main);
+}
+
+.appointment-form.theme-light .text-muted {
+  color: var(--color-text-muted) !important;
 }
 
 .mb-4 {
@@ -17,34 +27,45 @@
 }
 
 .alert {
-  padding: 1rem;
+  padding: 1rem 1.25rem;
   border-radius: var(--radius-md);
   margin-bottom: 1.5rem;
   font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
 }
 
 .alert.success {
-  background-color: #ECFDF5;
-  color: #047857;
-  border: 1px solid #A7F3D0;
+  background-color: rgba(16, 185, 129, 0.1);
+  color: #059669;
+  border: 1px solid rgba(16, 185, 129, 0.2);
 }
 
 .alert.error {
-  background-color: #FEF2F2;
-  color: #B91C1C;
-  border: 1px solid #FECACA;
+  background-color: rgba(239, 68, 68, 0.1);
+  color: #DC2626;
+  border: 1px solid rgba(239, 68, 68, 0.2);
 }
 
 .form-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 1.25rem;
+  gap: 1.5rem;
   margin-bottom: 1.5rem;
 }
 
 .form-group {
   display: flex;
   flex-direction: column;
+  gap: 0.6rem;
+}
+
+.form-group label {
+  font-size: 0.875rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
   gap: 0.5rem;
 }
 
@@ -52,56 +73,102 @@
   grid-column: 1 / -1;
 }
 
-.form-group label {
-  font-size: 0.875rem;
-  font-weight: 600;
-  color: rgba(255, 255, 255, 0.8);
+.appointment-form.theme-dark .form-group label {
+  color: rgba(255, 255, 255, 0.9);
 }
 
-.form-group input,
-.form-group select,
-.form-group textarea {
-  padding: 0.875rem 1rem;
-  border: 1px solid rgba(255, 255, 255, 0.1);
+.appointment-form.theme-light .form-group label {
+  color: var(--color-text-main);
+}
+
+.form-input {
+  padding: 0.875rem 1.125rem;
+  border: 1px solid transparent;
   border-radius: var(--radius-md);
   font-family: var(--font-main);
   font-size: 1rem;
+  transition: all 0.2s ease;
+  width: 100%;
+}
+
+/* Inputs in Dark Theme */
+.appointment-form.theme-dark .form-input {
   color: #FFFFFF;
-  background-color: rgba(0, 0, 0, 0.3);
+  background-color: rgba(255, 255, 255, 0.05);
+  border-color: rgba(255, 255, 255, 0.1);
   backdrop-filter: blur(10px);
-  transition: all var(--transition-fast);
 }
 
-.form-group input:focus,
-.form-group select:focus,
-.form-group textarea:focus {
-  outline: none;
-  border-color: var(--color-accent);
-  background-color: rgba(0, 0, 0, 0.5);
-  box-shadow: 0 0 0 3px rgba(0, 85, 255, 0.25);
-}
-
-.form-group input::placeholder,
-.form-group textarea::placeholder {
+.appointment-form.theme-dark .form-input::placeholder {
   color: rgba(255, 255, 255, 0.3);
 }
 
-.form-group select option {
-  background-color: #111111;
-  color: #FFFFFF;
+/* Inputs in Light Theme */
+.appointment-form.theme-light .form-input {
+  color: var(--color-text-main);
+  background-color: #F8FAFC; /* Softer light grey instead of stark white */
+  border-color: #E2E8F0;
+}
+
+.appointment-form.theme-light .form-input::placeholder {
+  color: #94A3B8;
+}
+
+/* Specific styling for date/time/select to ensure contrast */
+.appointment-form.theme-light .form-input[type="date"],
+.appointment-form.theme-light .form-input[type="time"],
+.appointment-form.theme-light select.form-input {
+  color: var(--color-text-main);
+}
+
+/* Focus Styles */
+.form-input:focus {
+  outline: none;
+  border-color: var(--color-accent);
+  box-shadow: 0 0 0 4px rgba(0, 85, 255, 0.15);
+  background-color: #FFFFFF !important;
+}
+
+.theme-dark .form-input:focus {
+  background-color: rgba(255, 255, 255, 0.1) !important;
+  border-color: #3B82F6;
+  box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.2);
 }
 
 .submit-btn {
   width: 100%;
+  padding: 1rem;
+  font-weight: 600;
+  font-size: 1.1rem;
+  letter-spacing: 0.01em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 1rem;
 }
 
 .submit-btn:disabled {
-  opacity: 0.7;
+  opacity: 0.8;
   cursor: not-allowed;
+}
+
+/* Loading Spinner */
+.spinner {
+  width: 20px;
+  height: 20px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  border-top-color: #FFFFFF;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
 }
 
 @media (max-width: 640px) {
   .form-grid {
     grid-template-columns: 1fr;
+    gap: 1.25rem;
   }
 }

@@ -1,7 +1,9 @@
 import { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { CheckCircle, AlertCircle, Calendar, Clock as ClockIcon, User, Phone as PhoneIcon, Mail as MailIcon, MessageSquare } from 'lucide-react';
 import './AppointmentForm.css';
 
-const AppointmentForm = () => {
+const AppointmentForm = ({ variant = 'light' }) => {
   const [formData, setFormData] = useState({
     name: '',
     phone: '',
@@ -42,21 +44,39 @@ const AppointmentForm = () => {
   };
 
   return (
-    <div className="appointment-form glass">
+    <div className={`appointment-form ${variant === 'dark' ? 'theme-dark' : 'theme-light'}`}>
       <h3 className="heading-tertiary">Book an Appointment</h3>
       <p className="text-muted mb-4">Schedule your visit with our specialists.</p>
       
-      {status === 'success' && (
-        <div className="alert success">Your appointment request has been sent! We will contact you shortly to confirm.</div>
-      )}
-      {status === 'error' && (
-        <div className="alert error">There was an error sending your request. Please try calling us instead.</div>
-      )}
+      <AnimatePresence>
+        {status === 'success' && (
+          <motion.div 
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: 'auto' }}
+            exit={{ opacity: 0, height: 0 }}
+            className="alert success"
+          >
+            <CheckCircle size={20} />
+            Your request has been sent! We will contact you shortly.
+          </motion.div>
+        )}
+        {status === 'error' && (
+          <motion.div 
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: 'auto' }}
+            exit={{ opacity: 0, height: 0 }}
+            className="alert error"
+          >
+            <AlertCircle size={20} />
+            There was an error. Please try calling us instead.
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       <form onSubmit={handleSubmit}>
         <div className="form-grid">
           <div className="form-group">
-            <label htmlFor="name">Full Name *</label>
+            <label htmlFor="name"><User size={14} /> Full Name *</label>
             <input 
               type="text" 
               id="name" 
@@ -64,12 +84,13 @@ const AppointmentForm = () => {
               required 
               value={formData.name} 
               onChange={handleChange} 
-              placeholder="John Doe"
+              placeholder="e.g. John Doe"
+              className="form-input"
             />
           </div>
           
           <div className="form-group">
-            <label htmlFor="phone">Phone Number *</label>
+            <label htmlFor="phone"><PhoneIcon size={14} /> Phone Number *</label>
             <input 
               type="tel" 
               id="phone" 
@@ -77,12 +98,13 @@ const AppointmentForm = () => {
               required 
               value={formData.phone} 
               onChange={handleChange} 
-              placeholder="(555) 123-4567"
+              placeholder="e.g. (555) 123-4567"
+              className="form-input"
             />
           </div>
           
           <div className="form-group full-width">
-            <label htmlFor="email">Email Address *</label>
+            <label htmlFor="email"><MailIcon size={14} /> Email Address *</label>
             <input 
               type="email" 
               id="email" 
@@ -90,30 +112,34 @@ const AppointmentForm = () => {
               required 
               value={formData.email} 
               onChange={handleChange} 
-              placeholder="john@example.com"
+              placeholder="e.g. john@example.com"
+              className="form-input"
             />
           </div>
           
           <div className="form-group full-width">
             <label htmlFor="service">Service Needed</label>
-            <select 
-              id="service" 
-              name="service" 
-              value={formData.service} 
-              onChange={handleChange}
-            >
-              <option value="" disabled>Select a service</option>
-              <option value="General Checkup">General Checkup</option>
-              <option value="Teeth Whitening">Teeth Whitening</option>
-              <option value="Root Canal">Root Canal</option>
-              <option value="Dental Implants">Dental Implants</option>
-              <option value="Invisalign / Braces">Invisalign / Braces</option>
-              <option value="Other">Other</option>
-            </select>
+            <div className="select-wrapper">
+              <select 
+                id="service" 
+                name="service" 
+                value={formData.service} 
+                onChange={handleChange}
+                className="form-input"
+              >
+                <option value="" disabled>Select a service</option>
+                <option value="General Checkup">General Checkup</option>
+                <option value="Teeth Whitening">Teeth Whitening</option>
+                <option value="Root Canal">Root Canal</option>
+                <option value="Dental Implants">Dental Implants</option>
+                <option value="Invisalign / Braces">Invisalign / Braces</option>
+                <option value="Other">Other</option>
+              </select>
+            </div>
           </div>
           
           <div className="form-group">
-            <label htmlFor="date">Preferred Date *</label>
+            <label htmlFor="date"><Calendar size={14} /> Preferred Date *</label>
             <input 
               type="date" 
               id="date" 
@@ -121,22 +147,24 @@ const AppointmentForm = () => {
               required 
               value={formData.date} 
               onChange={handleChange} 
+              className="form-input"
             />
           </div>
           
           <div className="form-group">
-            <label htmlFor="time">Preferred Time</label>
+            <label htmlFor="time"><ClockIcon size={14} /> Preferred Time</label>
             <input 
               type="time" 
               id="time" 
               name="time" 
               value={formData.time} 
               onChange={handleChange} 
+              className="form-input"
             />
           </div>
           
           <div className="form-group full-width">
-            <label htmlFor="message">Additional Notes</label>
+            <label htmlFor="message"><MessageSquare size={14} /> Additional Notes</label>
             <textarea 
               id="message" 
               name="message" 
@@ -144,17 +172,24 @@ const AppointmentForm = () => {
               value={formData.message} 
               onChange={handleChange} 
               placeholder="Any specific concerns or symptoms?"
+              className="form-input"
             ></textarea>
           </div>
         </div>
         
-        <button 
+        <motion.button 
+          whileHover={{ scale: 1.02 }}
+          whileTap={{ scale: 0.98 }}
           type="submit" 
-          className="btn btn-primary submit-btn full-width" 
+          className="btn btn-primary submit-btn" 
           disabled={status === 'submitting'}
         >
-          {status === 'submitting' ? 'Sending Request...' : 'Request Appointment'}
-        </button>
+          {status === 'submitting' ? (
+            <span className="flex items-center justify-center gap-2">
+              <div className="spinner"></div> Sending...
+            </span>
+          ) : 'Secure My Appointment'}
+        </motion.button>
       </form>
     </div>
   );
